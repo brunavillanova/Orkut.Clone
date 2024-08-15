@@ -29,7 +29,7 @@ O Orkut Clone é uma aplicação simples de front-end que recria a aparência e 
 orkut/
 ├── img/
 │ ├── icone.png
-│ ├── image.png.png
+│ ├── image.png
 │ └── orkut-logo.png 
 ├── style.css
 └── index.htm
