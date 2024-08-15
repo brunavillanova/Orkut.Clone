@@ -1,33 +1,20 @@
-# Define o nome do workflow
 name: Jekyll site CI
 
-# Define os eventos que acionam o workflow
 on:
-  # Aciona o workflow quando há um push para a branch 'main'
   push:
     branches: [ "main" ]
-  # Aciona o workflow quando um pull request é aberto ou atualizado na branch 'main'
   pull_request:
     branches: [ "main" ]
 
 jobs:
-  # Define um job chamado 'build'
   build:
-    # Define que o job será executado em um runner com o sistema operacional Ubuntu mais recente
+
     runs-on: ubuntu-latest
 
     steps:
-    # Passo para fazer o checkout do código-fonte do repositório
     - uses: actions/checkout@v4
-    
-    # Passo para construir o site usando o container do Jekyll
     - name: Build the site in the jekyll/builder container
       run: |
-        # Executa um container Docker com a imagem jekyll/builder:latest
         docker run \
-        # Monta o diretório de trabalho do GitHub Actions no diretório /srv/jekyll do container
-        -v ${{ github.workspace }}:/srv/jekyll \
-        # Monta o diretório _site (onde o Jekyll gera o site) no diretório correspondente do container
-        -v ${{ github.workspace }}/_site:/srv/jekyll/_site \
-        # Executa o comando no container Docker para construir o site Jekyll
+        -v ${{ github.workspace }}:/srv/jekyll -v ${{ github.workspace }}/_site:/srv/jekyll/_site \
         jekyll/builder:latest /bin/bash -c "chmod -R 777 /srv/jekyll && jekyll build --future"
